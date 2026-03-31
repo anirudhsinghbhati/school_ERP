@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RoleLandingPage from './pages/RoleLandingPage';
 import TeacherDashboard from './pages/TeacherDashboard';
+import ParentDashboard from './pages/ParentDashboard';
 
 function PrivateShell() {
   return (
@@ -25,10 +26,7 @@ function PrivateShell() {
           path="/parent"
           element={
             <RoleGate allowedRoles={['parent']}>
-              <RoleLandingPage
-                title="Parent Workspace"
-                description="Phase 7 will add report-card views, progress charts, and polling updates."
-              />
+              <ParentDashboard />
             </RoleGate>
           }
         />
