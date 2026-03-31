@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import ProgressChart from '../components/ProgressChart';
 import { useApi } from '../hooks/useApi';
 import { useStudentUpdates } from '../hooks/useStudentUpdates';
+import { useAuth } from '../hooks/useAuth';
 
 function formatDate(value) {
   if (!value) {
@@ -12,6 +13,7 @@ function formatDate(value) {
 
 export default function ParentDashboard() {
   const api = useApi();
+  const { token } = useAuth();
 
   const [dashboard, setDashboard] = useState(null);
   const [selectedStudentId, setSelectedStudentId] = useState('');
@@ -19,7 +21,7 @@ export default function ParentDashboard() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const { updates, isPolling, pollingError } = useStudentUpdates(selectedStudentId || null, 12000);
+  const { updates, isPolling, pollingError } = useStudentUpdates(selectedStudentId || null, 30000);
 
   const selectedStudent = useMemo(() => {
     const students = dashboard?.students || [];
@@ -27,6 +29,16 @@ export default function ParentDashboard() {
   }, [dashboard, selectedStudentId]);
 
   const loadDashboard = async () => {
+    // If there is no auth token (logged out), skip hitting protected endpoints
+    // and just show the empty state without any error.
+    if (!token) {
+      setDashboard(null);
+      setSelectedStudentId('');
+      setProgress(null);
+      setError('');
+      return;
+    }
+
     setIsLoading(true);
     setError('');
     try {
@@ -48,7 +60,7 @@ export default function ParentDashboard() {
   };
 
   const loadProgress = async (studentId) => {
-    if (!studentId) {
+    if (!studentId || !token) {
       setProgress(null);
       return;
     }
@@ -81,9 +93,9 @@ export default function ParentDashboard() {
   return (
     <main className="dashboard-shell">
       <section className="panel hero-panel">
-        <p className="eyebrow">Phase 7</p>
+        <p className="eyebrow">Parent Dashboard</p>
         <h2>Parent Dashboard</h2>
-        <p>Track student performance, report-card details, and live update events in one place.</p>
+        <p>Review progress, the latest report card, and live updates for your selected student.</p>
       </section>
 
       <section className="panel parent-grid">

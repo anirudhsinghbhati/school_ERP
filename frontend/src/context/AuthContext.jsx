@@ -42,6 +42,23 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const register = async (payload) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post(`${API_BASE_URL}/api/auth/register`, payload);
+
+      const nextToken = response.data.token;
+      const nextUser = response.data.user;
+
+      setToken(nextToken);
+      setUser(nextUser);
+
+      return nextUser;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const logout = () => {
     setToken(null);
     setUser(null);
@@ -56,6 +73,7 @@ export function AuthProvider({ children }) {
       isLoading,
       isAuthenticated: Boolean(token && user),
       login,
+      register,
       logout,
       apiBaseUrl: API_BASE_URL,
     }),

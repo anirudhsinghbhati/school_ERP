@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useApi } from './useApi';
+import { useAuth } from './useAuth';
 
 export function useStudentUpdates(studentId, pollIntervalMs = 15000) {
   const api = useApi();
+  const { token } = useAuth();
   const [updates, setUpdates] = useState([]);
   const [isPolling, setIsPolling] = useState(false);
   const [error, setError] = useState('');
@@ -14,6 +16,14 @@ export function useStudentUpdates(studentId, pollIntervalMs = 15000) {
     sinceRef.current = null;
 
     if (!studentId) {
+      return undefined;
+    }
+
+    // If the user isn't logged in yet, skip polling protected endpoints silently.
+    if (!token) {
+      setUpdates([]);
+      setIsPolling(false);
+      setError('');
       return undefined;
     }
 
@@ -64,7 +74,7 @@ export function useStudentUpdates(studentId, pollIntervalMs = 15000) {
       active = false;
       clearInterval(timerId);
     };
-  }, [api, studentId, pollIntervalMs]);
+  }, [api, token, studentId, pollIntervalMs]);
 
   return {
     updates,

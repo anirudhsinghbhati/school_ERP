@@ -9,11 +9,14 @@ const INITIAL_FORM = {
   examType: 'unit_test',
 };
 
-export default function MarkUploadForm({ onSubmit, isSubmitting }) {
+export default function MarkUploadForm({ onSubmit, isSubmitting, disabled = false }) {
   const [form, setForm] = useState(INITIAL_FORM);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (disabled) {
+      return;
+    }
 
     await onSubmit({
       classId: Number(form.classId),
@@ -43,6 +46,7 @@ export default function MarkUploadForm({ onSubmit, isSubmitting }) {
           required
           value={form.classId}
           onChange={(event) => setForm((prev) => ({ ...prev, classId: event.target.value }))}
+          disabled={disabled}
         />
       </label>
 
@@ -54,6 +58,7 @@ export default function MarkUploadForm({ onSubmit, isSubmitting }) {
           required
           value={form.studentId}
           onChange={(event) => setForm((prev) => ({ ...prev, studentId: event.target.value }))}
+          disabled={disabled}
         />
       </label>
 
@@ -65,6 +70,7 @@ export default function MarkUploadForm({ onSubmit, isSubmitting }) {
           required
           value={form.subjectId}
           onChange={(event) => setForm((prev) => ({ ...prev, subjectId: event.target.value }))}
+          disabled={disabled}
         />
       </label>
 
@@ -76,6 +82,7 @@ export default function MarkUploadForm({ onSubmit, isSubmitting }) {
           required
           value={form.marksObtained}
           onChange={(event) => setForm((prev) => ({ ...prev, marksObtained: event.target.value }))}
+          disabled={disabled}
         />
       </label>
 
@@ -87,6 +94,7 @@ export default function MarkUploadForm({ onSubmit, isSubmitting }) {
           required
           value={form.totalMarks}
           onChange={(event) => setForm((prev) => ({ ...prev, totalMarks: event.target.value }))}
+          disabled={disabled}
         />
       </label>
 
@@ -95,6 +103,7 @@ export default function MarkUploadForm({ onSubmit, isSubmitting }) {
         <select
           value={form.examType}
           onChange={(event) => setForm((prev) => ({ ...prev, examType: event.target.value }))}
+          disabled={disabled}
         >
           <option value="unit_test">Unit Test</option>
           <option value="midterm">Midterm</option>
@@ -104,8 +113,8 @@ export default function MarkUploadForm({ onSubmit, isSubmitting }) {
         </select>
       </label>
 
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Publishing...' : 'Publish Mark'}
+      <button type="submit" disabled={disabled || isSubmitting}>
+        {disabled ? 'Publish Mark' : isSubmitting ? 'Publishing...' : 'Publish Mark'}
       </button>
     </form>
   );

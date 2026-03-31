@@ -250,6 +250,109 @@ body {
   cursor: not-allowed;
 }
 
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.auth-tab-button {
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper-100);
+  color: var(--ink-700);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.auth-tab-button:hover:not(:disabled) {
+  border-color: var(--brand);
+  background: rgba(14, 138, 106, 0.05);
+}
+
+.auth-tab-active {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+
+.auth-banner {
+  padding: 0.8rem;
+  border-radius: 10px;
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.auth-success {
+  background: rgba(14, 138, 106, 0.1);
+  color: var(--brand-dark);
+  border: 1px solid rgba(14, 138, 106, 0.3);
+}
+
+.auth-error {
+  background: rgba(175, 47, 82, 0.1);
+  color: var(--alert);
+  border: 1px solid rgba(175, 47, 82, 0.3);
+}
+
+.auth-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.auth-password-field {
+  position: relative;
+}
+
+.auth-password-field label {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.auth-visibility-toggle {
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.6rem;
+  background: none;
+  border: none;
+  color: var(--brand);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.auth-visibility-toggle:hover {
+  color: var(--brand-dark);
+}
+
+.auth-visibility-toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.login-card select {
+  height: 2.55rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  padding: 0 0.8rem;
+  font-family: inherit;
+  font-size: 0.93rem;
+  color: var(--ink-900);
+}
+
+.login-card select:focus {
+  outline: 2px solid #7fe7c8;
+  border-color: #8fceb9;
+}
+
 .error-text {
   margin: 0;
   color: var(--alert);
@@ -520,7 +623,8 @@ body {
   .parent-grid,
   .parent-grid-bottom,
   .teacher-lists,
-  .teacher-form {
+  .teacher-form,
+  .auth-form-row {
     grid-template-columns: 1fr;
   }
 

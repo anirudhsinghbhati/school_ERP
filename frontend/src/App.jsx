@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import RoleGate from './components/RoleGate';
 import TopNav from './components/TopNav';
-import { useAuth } from './hooks/useAuth';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RoleLandingPage from './pages/RoleLandingPage';
@@ -48,12 +47,10 @@ function PrivateShell() {
 }
 
 function App() {
-  const { isAuthenticated } = useAuth();
-
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="*" element={isAuthenticated ? <PrivateShell /> : <Navigate to="/login" replace />} />
+      <Route path="*" element={<PrivateShell />} />
     </Routes>
   );
 }

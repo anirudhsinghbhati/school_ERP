@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import MarkUploadForm from '../components/MarkUploadForm';
 import { useApi } from '../hooks/useApi';
+import { useAuth } from '../hooks/useAuth';
 
 function formatDate(value) {
   if (!value) {
@@ -11,6 +12,7 @@ function formatDate(value) {
 
 export default function TeacherDashboard() {
   const api = useApi();
+  const { token } = useAuth();
 
   const [classId, setClassId] = useState('1');
   const [marks, setMarks] = useState([]);
@@ -26,6 +28,14 @@ export default function TeacherDashboard() {
     setError('');
     setSuccess('');
     setIsLoading(true);
+
+    // Logged-out visitors can view the page, but API data requires auth.
+    if (!token) {
+      setMarks([]);
+      setAssignments([]);
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const [marksResponse, assignmentsResponse] = await Promise.all([
@@ -53,6 +63,10 @@ export default function TeacherDashboard() {
   const handlePublishMark = async (payload) => {
     setError('');
     setSuccess('');
+    if (!token) {
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -73,16 +87,20 @@ export default function TeacherDashboard() {
   return (
     <main className="dashboard-shell">
       <section className="panel hero-panel">
-        <p className="eyebrow">Phase 6</p>
+        <p className="eyebrow">Teacher Dashboard</p>
         <h2>Teacher Dashboard</h2>
-        <p>Publish marks and monitor recent class activity from the live backend APIs.</p>
+        <p>Publish marks, then monitor recent publishes and assignments for your selected class.</p>
       </section>
 
       <section className="panel teacher-grid">
         <article className="teacher-card">
           <h3>Publish New Mark</h3>
-          <p>Use numeric IDs from your data seed or database for class, student, and subject mapping.</p>
-          <MarkUploadForm onSubmit={handlePublishMark} isSubmitting={isSubmitting} />
+          <p>Enter Class ID, Student ID, Subject ID, and mark details to publish a new academic update.</p>
+          <MarkUploadForm
+            onSubmit={handlePublishMark}
+            isSubmitting={isSubmitting}
+            disabled={!token}
+          />
         </article>
 
         <article className="teacher-card">
@@ -95,8 +113,9 @@ export default function TeacherDashboard() {
                 value={classId}
                 onChange={(event) => setClassId(event.target.value)}
                 aria-label="Class ID"
+                disabled={!token}
               />
-              <button type="button" onClick={loadClassData} disabled={isLoading}>
+              <button type="button" onClick={loadClassData} disabled={isLoading || !token}>
                 {isLoading ? 'Loading...' : 'Refresh'}
               </button>
             </div>
