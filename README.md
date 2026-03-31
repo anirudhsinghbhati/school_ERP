@@ -112,12 +112,20 @@ Evaluation will be primarily based on the contents of the repository, the qualit
    ```
    Backend runs on `http://localhost:5000`
 
-5. **Health check**
+5. **Start the frontend app**
+    ```bash
+    cd frontend
+    npm install
+    npm run dev
+    ```
+    Frontend runs on `http://localhost:5173`
+
+6. **Health check**
    ```bash
    curl http://localhost:5000/health
    ```
 
-6. **Run tests**
+7. **Run backend tests**
    ```bash
    npm test
    ```
@@ -162,32 +170,19 @@ Evaluation will be primarily based on the contents of the repository, the qualit
 ## Project Structure
 
 ```
-backend/
+.
 ├── server.js                    # Express app entry point
 ├── db.js                        # PostgreSQL connection pool
 ├── schema.sql                   # Database DDL + sample data
-├── package.json                 # Dependencies
-├── .env                         # Environment variables (local)
-├── .env.example                 # Environment template
-├── jest.config.js               # Testing configuration
-│
+├── package.json                 # Backend dependencies
+├── jest.config.js               # Backend test config
 ├── middleware/
-│   └── auth.js                  # JWT verification, RBAC middleware
-│
 ├── routes/
-│   ├── auth.js                  # Authentication endpoints
-│   ├── academics.js             # Academic records endpoints
-│   ├── parents.js               # Parent dashboard endpoints
-│   └── analytics.js             # Analytics endpoints
-│
 ├── services/
-│   ├── academicService.js       # Mark validation, audit (PENDING)
-│   ├── parentService.js         # Dashboard aggregation (PENDING)
-│   └── analyticsService.js      # Performance calculations (PENDING)
-│
-└── tests/
-    ├── auth.test.js             # Authentication tests (PENDING)
-    └── academics.test.js        # Academic records tests (PENDING)
+├── tests/                       # Backend jest tests
+├── docs/                        # Discovery and planning docs
+├── .reviews/                    # Per-phase AI review files
+└── frontend/                    # React + Vite application
 ```
 
 ---
@@ -287,8 +282,8 @@ router.get('/analytics/class/:id', authMiddleware, rbac(['admin', 'department'])
 - [x] Design philosophy documented
 - [x] Database schema with audit trails
 - [x] Authentication and RBAC implemented
-- [x] Base routes stubbed with 501 responses (to be implemented in phases)
-- [x] Tests structure in place (pending implementation)
+- [x] Academic, parent, and analytics routes implemented
+- [x] Backend Jest test suite implemented and passing
 - [x] Regular commits with AI review files (in progress)
 
 ### Feature Status
@@ -298,22 +293,22 @@ router.get('/analytics/class/:id', authMiddleware, rbac(['admin', 'department'])
 | Authentication | ✅ Complete | JWT login/register/logout |
 | RBAC Middleware | ✅ Complete | Teacher, parent, admin, department roles |
 | Database Schema | ✅ Complete | All tables, triggers, sample data |
-| Mark Upload | 🔄 In Progress | Phase 2 |
-| Parent Dashboard | 🔄 In Progress | Phase 3 & 7 |
-| Analytics Dashboard | 🔄 In Progress | Phase 4 & 8 |
-| Real-Time Updates | 🔄 In Progress | Phase 3 (polling) |
-| Frontend UI | 🔄 In Progress | Phase 5-7 |
-| Tests | ⏳ Not Started | Phase 10 |
+| Mark Upload | ✅ Complete | Phase 2 backend + Phase 6 teacher UI |
+| Parent Dashboard | ✅ Complete | Phase 3 backend + Phase 7 parent UI |
+| Analytics Dashboard | ✅ Backend Complete | Phase 4 API complete, admin charts pending |
+| Real-Time Updates | ✅ Complete (Polling) | Parent polling endpoint + frontend hook |
+| Frontend UI | ✅ Core Complete | Phase 5-7 auth, teacher, and parent views |
+| Tests | ✅ Backend Unit Tests | Jest tests for middleware and service validations |
 
 ---
 
 ## Required Documentation Files
 
 - [x] **README.md** (this file): Setup and execution
-- [ ] **DEVELOPMENT.md**: Implementation approach, technical decisions, AI review process
+- [x] **DEVELOPMENT.md**: Implementation approach, technical decisions, AI review process
 - [x] **schema.sql**: Database structure with comments
 - [x] **middleware/auth.js**: Code comments on JWT/RBAC
-- [ ] **.reviews/** directory: AI review files for each commit (one per commit)
+- [x] **.reviews/** directory: AI review files for each completed phase commit
 
 ---
 
@@ -345,13 +340,11 @@ Example AI review file format:
 
 ## Next Steps
 
-1. **Phase 2**: Implement `/api/academics/marks` endpoint (mark upload validation)
-2. **Phase 3**: Implement `/api/parents/*` endpoints (dashboard aggregation)
-3. **Phase 4**: Implement `/api/analytics/*` endpoints (performance calculations)
-4. **Phase 5**: Initialize React frontend with auth context
-5. **Phase 6-7**: Build teacher, parent, and admin UIs
-6. **Phase 8**: Unit + integration tests
-7. **Phase 9**: Final polish and mobile responsiveness
+1. Build Phase 8 admin analytics UI charts against completed analytics APIs
+2. Expand test coverage with API integration tests (Supertest + DB fixtures)
+3. Add frontend test coverage for auth routing and dashboard behaviors
+4. Polish accessibility and error states for production readiness
+5. Prepare final demo script mapped to submitted commit ID
 
 ---
 
