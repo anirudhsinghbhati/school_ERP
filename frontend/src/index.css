@@ -1,0 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap');
+
+:root {
+  --ink-900: #1c2228;
+  --ink-700: #3b4752;
+  --ink-500: #607182;
+  --paper-100: #f8faf9;
+  --paper-200: #eef2ef;
+  --line: #d6dfd8;
+  --brand: #0e8a6a;
+  --brand-dark: #0a6d53;
+  --alert: #af2f52;
+  --shadow: 0 18px 40px rgba(25, 39, 34, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Source Sans 3', sans-serif;
+  color: var(--ink-900);
+  background:
+    radial-gradient(circle at 10% 15%, #d7f3e8 0, transparent 26%),
+    radial-gradient(circle at 87% 10%, #dce8ff 0, transparent 24%),
+    linear-gradient(140deg, #f4f8f6, #eef1f6 60%, #eef8f3);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  width: min(1180px, 94vw);
+  margin: 1.3rem auto 2rem;
+}
+
+.top-nav {
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.84);
+  backdrop-filter: blur(8px);
+  display: grid;
+  grid-template-columns: 1.3fr 1fr auto;
+  gap: 1.1rem;
+  align-items: center;
+  padding: 0.95rem 1.2rem;
+  box-shadow: var(--shadow);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.brand-mark {
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+  background: linear-gradient(140deg, var(--brand), #43c096);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 1.17rem;
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1.1;
+}
+
+.brand p {
+  margin: 0.2rem 0 0;
+  color: var(--ink-500);
+  font-size: 0.92rem;
+}
+
+.top-nav nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.top-nav nav a {
+  text-decoration: none;
+  color: var(--ink-700);
+  border-radius: 999px;
+  padding: 0.38rem 0.8rem;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.top-nav nav a:hover {
+  border-color: var(--line);
+  color: var(--brand-dark);
+  background: #f6fcfa;
+}
+
+.auth-chip {
+  text-align: right;
+  display: grid;
+  gap: 0.1rem;
+  justify-items: end;
+}
+
+.auth-chip span {
+  font-size: 0.82rem;
+  color: var(--ink-500);
+}
+
+.auth-chip strong {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--brand-dark);
+}
+
+.auth-chip button {
+  border: none;
+  border-radius: 10px;
+  background: var(--ink-900);
+  color: #fff;
+  padding: 0.42rem 0.68rem;
+  cursor: pointer;
+}
+
+.dashboard-shell,
+.login-shell {
+  margin-top: 1.1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.panel,
+.login-card {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.89);
+  box-shadow: var(--shadow);
+}
+
+.hero-panel {
+  padding: 1.4rem 1.5rem;
+}
+
+.grid-panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1.2rem;
+}
+
+.grid-panel article {
+  border: 1px solid var(--paper-200);
+  border-radius: 16px;
+  background: var(--paper-100);
+  padding: 1rem;
+}
+
+.grid-panel h3 {
+  margin: 0 0 0.45rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.grid-panel ul {
+  margin: 0;
+  padding-left: 1rem;
+  color: var(--ink-700);
+}
+
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--brand-dark);
+  font-weight: 600;
+}
+
+.hero-panel h2,
+.login-card h2 {
+  margin: 0.3rem 0 0.5rem;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.hero-panel p,
+.subtext {
+  margin: 0;
+  color: var(--ink-700);
+}
+
+.login-shell {
+  width: min(460px, 92vw);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2.6rem;
+}
+
+.login-card {
+  padding: 1.35rem;
+}
+
+.login-card form {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.84rem;
+}
+
+.login-card label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.93rem;
+  color: var(--ink-700);
+}
+
+.login-card input {
+  height: 2.55rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  padding: 0 0.8rem;
+  font-family: inherit;
+}
+
+.login-card input:focus {
+  outline: 2px solid #7fe7c8;
+  border-color: #8fceb9;
+}
+
+.login-card button {
+  height: 2.7rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  background: linear-gradient(125deg, var(--brand), #2cad86);
+  color: white;
+  cursor: pointer;
+}
+
+.login-card button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error-text {
+  margin: 0;
+  color: var(--alert);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 980px) {
+  .top-nav {
+    grid-template-columns: 1fr;
+    justify-items: start;
+    text-align: left;
+    gap: 0.75rem;
+  }
+
+  .auth-chip {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .grid-panel {
+    grid-template-columns: 1fr;
+  }
+}
