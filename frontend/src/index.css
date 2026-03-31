@@ -256,6 +256,127 @@ body {
   font-size: 0.9rem;
 }
 
+.success-text {
+  margin: 0;
+  color: var(--brand-dark);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.teacher-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.teacher-card {
+  border: 1px solid var(--paper-200);
+  background: #fbfffd;
+  border-radius: 16px;
+  padding: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.teacher-card h3,
+.teacher-card h4 {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.teacher-card p {
+  margin: 0;
+  color: var(--ink-700);
+}
+
+.teacher-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.teacher-form label {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.88rem;
+  color: var(--ink-700);
+}
+
+.teacher-form input,
+.teacher-form select,
+.class-controls input {
+  height: 2.35rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  padding: 0 0.65rem;
+  font-family: inherit;
+}
+
+.teacher-form button,
+.class-controls button {
+  height: 2.45rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--ink-900);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.teacher-form button {
+  grid-column: 1 / -1;
+}
+
+.teacher-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.class-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.class-controls input {
+  width: 88px;
+}
+
+.teacher-lists {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.data-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.data-list li {
+  border: 1px solid var(--paper-200);
+  border-radius: 12px;
+  padding: 0.55rem 0.65rem;
+  display: grid;
+  gap: 0.1rem;
+  background: #fff;
+}
+
+.data-list li strong {
+  font-size: 0.92rem;
+}
+
+.data-list li span,
+.data-list li time {
+  font-size: 0.82rem;
+  color: var(--ink-700);
+}
+
 @media (max-width: 980px) {
   .top-nav {
     grid-template-columns: 1fr;
@@ -271,5 +392,16 @@ body {
 
   .grid-panel {
     grid-template-columns: 1fr;
+  }
+
+  .teacher-grid,
+  .teacher-lists,
+  .teacher-form {
+    grid-template-columns: 1fr;
+  }
+
+  .teacher-card-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

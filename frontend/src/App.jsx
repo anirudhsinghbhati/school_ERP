@@ -5,6 +5,7 @@ import { useAuth } from './hooks/useAuth';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RoleLandingPage from './pages/RoleLandingPage';
+import TeacherDashboard from './pages/TeacherDashboard';
 
 function PrivateShell() {
   return (
@@ -16,10 +17,7 @@ function PrivateShell() {
           path="/teacher"
           element={
             <RoleGate allowedRoles={['teacher']}>
-              <RoleLandingPage
-                title="Teacher Workspace"
-                description="Phase 6 will add mark uploads, assignment workflows, and recent publish activity."
-              />
+              <TeacherDashboard />
             </RoleGate>
           }
         />
